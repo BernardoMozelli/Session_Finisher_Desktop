@@ -195,13 +195,15 @@ def ler_arquivo(event=None):
     
     #Exibe mensagem de erro caso a condição do primeiro if seja falsa
     if not found:
-        global show_aviso1
+        global show_aviso1, resposta2
         show_aviso1 = CTkMessagebox(
             title="Session Finisher - Consulta",
             message="Sua consulta não retornou nenhum registro!!!",
             icon="warning", option_1="Ok",
             fade_in_duration=(2))
-        sys.exit()
+        resposta2 = show_aviso1.get()
+        if resposta2 == "Ok":
+            sys.exit()
     
     #Exibe mensagem de sucesso caso a condição do primeiro if seja verdadeira
     global show_consult_sucess
@@ -221,7 +223,8 @@ ler_arquivo
 
 #Executa comando para exibir usuários logados no computador informado
 def comando_01():
-    global var_nomedopc   
+    global var_nomedopc
+    global var_usuario   
     var_nomedopc = entry_nomedopc.get()
     var_usuario = entry_consulta.get()
     
@@ -243,7 +246,30 @@ def comando_02():
     resultado_finalID = var_id
     
     cmd_to_run2 = ('logoff /server:{} {}'.format(var_nomedopc.lstrip(), resultado_finalID))
-    subprocess.run(cmd_to_run2, shell=True, text=True, stdout=subprocess.PIPE)
+    valida = subprocess.run(cmd_to_run2, shell=True, text=True, stdout=subprocess.PIPE)
+    
+    comando_status = True
+    if comando_status:
+         #Exibe mensagem de sucesso caso a condição do primeiro if seja verdadeira
+        global show_comandsucess
+        show_comandsucess = CTkMessagebox(
+            title="Session Finisher",
+            message="Sessão do usuário " + var_usuario + " foi finalizada com sucesso!!!",
+            icon="check", option_1="Ok",
+            fade_in_duration=(2))
+        resposta = show_comandsucess.get()
+        if resposta == "Ok":
+            return var_usuario
+    if not comando_status:
+        global show_comanderro
+        show_comanderro = CTkMessagebox(
+            title="Session Finisher",
+            message='Falha ao finalizar sessão do usuário ' + var_usuario + ".",
+            icon="check", option_1="Ok",
+            fade_in_duration=(2))
+        resposta = show_comanderro.get()
+        if resposta == "Ok":
+            return var_usuario
     
 comando_02
 
