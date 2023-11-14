@@ -28,14 +28,13 @@ ctk.set_default_color_theme("blue")
 
 janela_consulta = customtkinter.CTk()
 janela_consulta.title("Ending Session")
-datafile = "C:/Users/bernardomedeiros/Desktop/finaliza_sessao/main/logo_icone.ico"
-janela_consulta.iconbitmap(default=datafile)
+janela_consulta.iconbitmap(default="C:/Session Finisher/imagens/logo_icone.ico")
 janela_consulta.geometry("600x500")
 janela_consulta.geometry("1000x550+250+70")
 janela_consulta.resizable(False, False)
 
 # Inserindo imagem de fundo
-img_logo = ImageTk.PhotoImage(Image.open("C:/Users/bernardomedeiros/Desktop/finaliza_sessao/main/logo.png"))
+img_logo = ImageTk.PhotoImage(Image.open("C:/Session Finisher/imagens/logo.png"))
 label_logo = customtkinter.CTkLabel(master=janela_consulta,
                                     text="",
                                     width=50,
