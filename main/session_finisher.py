@@ -12,18 +12,29 @@ import pandas
 import os
 import sys
 import subprocess
-from utils.layout import *
+import customtkinter as ctk
+
+################# Estilo das páginas ###############
+
+co1 = "white"  # branca
+co2 = "#1c999d"   # Verde água
+co3 = "#1f538d"  # Azul 2
+
+# Escolhendo tema padrão dos widgets
+ctk.set_appearance_mode("dark") 
+ctk.set_default_color_theme("blue")
+
+#####################################################
 
 janela_consulta = customtkinter.CTk()
 janela_consulta.title("Ending Session")
-janela_consulta.wm_iconbitmap(
-    default="./imagens/logo_icone.ico")  # alterando o icone
+janela_consulta.iconbitmap(default="C:/Session Finisher/imagens/logo_icone.ico")
 janela_consulta.geometry("600x500")
 janela_consulta.geometry("1000x550+250+70")
 janela_consulta.resizable(False, False)
 
 # Inserindo imagem de fundo
-img_logo = ImageTk.PhotoImage(Image.open("./imagens/logo.png"))
+img_logo = ImageTk.PhotoImage(Image.open("C:/Session Finisher/imagens/logo.png"))
 label_logo = customtkinter.CTkLabel(master=janela_consulta,
                                     text="",
                                     width=50,
@@ -230,7 +241,7 @@ def comando_01():
     
     #Executa o comando no cmd e armazena a saída em uma variável
     cmd_to_run = ('qwinsta /server:{} {}'.format(var_nomedopc.lstrip(), var_usuario))
-    results_id = subprocess.run(cmd_to_run, shell=True, text=True, stdout=subprocess.PIPE)
+    results_id = subprocess.run(cmd_to_run, shell=False, text=True, stdout=subprocess.PIPE)
     resultado_txt = (str(results_id.stdout))
     
     with open('C://comando_id.txt', 'w') as arquivo_id:
